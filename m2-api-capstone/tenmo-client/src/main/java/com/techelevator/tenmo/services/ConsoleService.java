@@ -2,12 +2,16 @@ package com.techelevator.tenmo.services;
 
 
 import com.techelevator.tenmo.models.Account;
+import com.techelevator.tenmo.models.Users;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.security.Principal;
 import java.text.DecimalFormat;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ConsoleService {
 
@@ -57,7 +61,7 @@ public class ConsoleService {
 	}
 
 	public String getUserInput(String prompt) {
-		out.print(prompt+": ");
+		out.print(prompt + ": ");
 		out.flush();
 		return in.nextLine();
 	}
@@ -65,23 +69,41 @@ public class ConsoleService {
 	public Integer getUserInputInteger(String prompt) {
 		Integer result = null;
 		do {
-			out.print(prompt+": ");
+			out.print(prompt + ": ");
 			out.flush();
 			String userInput = in.nextLine();
 			try {
 				result = Integer.parseInt(userInput);
-			} catch(NumberFormatException e) {
+			} catch (NumberFormatException e) {
 				out.println(System.lineSeparator() + "*** " + userInput + " is not valid ***" + System.lineSeparator());
 			}
-		} while(result == null);
+		} while (result == null);
 		return result;
 	}
 
-	public void showUserBalance(Account account){
+	public void showUserBalance(Account account) {
 
 		out.printf("Your current account balance is: $%.2f", account.getBalance());
 		out.println("");
 		out.flush();
 	}
 
+	public void showUserList() {
+		TransfersService transfersService = new TransfersService();
+		List<Users> userList = transfersService.getUsers();
+
+		out.println("-------------------------------------------");
+		out.println("Users");
+		out.println("ID \tName");
+		out.println("-------------------------------------------");
+
+		for (Users users : userList) {
+			out.print(transfersService.getUsers());
+//			out.print(users.getUserId);
+//			out.print(users.getUsername);
+		}
+
+		out.println("---------");
+		out.println("");
+	}
 }

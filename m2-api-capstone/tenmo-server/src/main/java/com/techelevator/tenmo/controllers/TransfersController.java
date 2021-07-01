@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.techelevator.tenmo.models.Users;
 
-import java.awt.*;
 import java.security.Principal;
+import java.util.List;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
@@ -20,11 +20,12 @@ public class TransfersController {
         this.transfersDAO = transfersDAO;
     }
 
-//    @RequestMapping(path = "/getusers", method = RequestMethod.GET)
-//    public List<Users> get(Principal principal) {
-//        return transfersDAO.displayUsers();
-//    }
-//
+
+    @RequestMapping(path = "/getusers", method = RequestMethod.GET)
+    public List<Users> get(Principal principal) {
+        return transfersDAO.displayUsers();
+    }
+
 
 //    @RequestMapping(path="/sendbucks", method = RequestMethod.GET){
     //
