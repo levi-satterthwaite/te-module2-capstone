@@ -100,9 +100,10 @@ public class ConsoleService {
 		out.println("-------------------------------------------");
 
 		for (Users users : userList) {
-			//out.print(transfersService.getUsers());
-			out.print(users.getUserID());
-			out.println("        " + users.getUsername());
+			if (!users.getUsername().equals(currentUser.getUser().getUsername())) {
+				out.print(users.getUserID());
+				out.println("        " + users.getUsername());
+			}
 		}
 
 		out.println("---------");
