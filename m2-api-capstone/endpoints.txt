@@ -1,0 +1,4 @@
+http://localhost:8080/balance
+http://localhost:8080/transfers
+http://localhost:8080/transfers/1
+http://localhost:8080/pending
