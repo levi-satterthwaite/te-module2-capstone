@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/m02-capstone-client.iml" filepath="$PROJECT_DIR$/m02-capstone-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/../tenmo-server/m02-capstone-server.iml" filepath="$PROJECT_DIR$/../tenmo-server/m02-capstone-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../levisatterthwaite-java-blue/module-2/16_Authentication/exercise-student/client/m02d16-authentication-exercise-client.iml" filepath="$PROJECT_DIR$/../../../levisatterthwaite-java-blue/module-2/16_Authentication/exercise-student/client/m02d16-authentication-exercise-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../levisatterthwaite-java-blue/module-2/16_Authentication/exercise-student/server/m02d16-authentication-exercise-server.iml" filepath="$PROJECT_DIR$/../../../levisatterthwaite-java-blue/module-2/16_Authentication/exercise-student/server/m02d16-authentication-exercise-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../team6-java-blue-week06-pair-exercises/09_Capstone/m2-capstone-excelsior-venues.iml" filepath="$PROJECT_DIR$/../../../team6-java-blue-week06-pair-exercises/09_Capstone/m2-capstone-excelsior-venues.iml" />
     </modules>
   </component>

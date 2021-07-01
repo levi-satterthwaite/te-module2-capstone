@@ -7,6 +7,7 @@ import com.techelevator.tenmo.auth.services.AuthenticationServiceException;
 import com.techelevator.tenmo.models.Account;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.ConsoleService;
+import com.techelevator.tenmo.services.TransfersService;
 import io.cucumber.java.bs.A;
 
 public class App {
@@ -89,8 +90,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	}
 
 	private void sendBucks() {
-		// TODO Auto-generated method stub
-		
+		console.showUserList(currentUser, API_BASE_URL);
 	}
 
 	private void requestBucks() {

@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.services;
 
 
+import com.techelevator.tenmo.auth.models.AuthenticatedUser;
 import com.techelevator.tenmo.models.Account;
 import com.techelevator.tenmo.models.Users;
 
@@ -17,6 +18,7 @@ public class ConsoleService {
 
 	private PrintWriter out;
 	private Scanner in;
+
 
 	public ConsoleService(InputStream input, OutputStream output) {
 		this.out = new PrintWriter(output, true);
@@ -88,19 +90,19 @@ public class ConsoleService {
 		out.flush();
 	}
 
-	public void showUserList() {
-		TransfersService transfersService = new TransfersService();
+	public void showUserList(AuthenticatedUser currentUser, String baseUrl) {
+		TransfersService transfersService = new TransfersService(currentUser, baseUrl);
 		List<Users> userList = transfersService.getUsers();
 
 		out.println("-------------------------------------------");
 		out.println("Users");
-		out.println("ID \tName");
+		out.println("ID          Name");
 		out.println("-------------------------------------------");
 
 		for (Users users : userList) {
-			out.print(transfersService.getUsers());
-//			out.print(users.getUserId);
-//			out.print(users.getUsername);
+			//out.print(transfersService.getUsers());
+			out.print(users.getUserID());
+			out.println("        " + users.getUsername());
 		}
 
 		out.println("---------");

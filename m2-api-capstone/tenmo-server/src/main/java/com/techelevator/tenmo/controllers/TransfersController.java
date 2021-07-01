@@ -20,7 +20,7 @@ public class TransfersController {
         this.transfersDAO = transfersDAO;
     }
 
-
+    @PreAuthorize("permitAll")
     @RequestMapping(path = "/getusers", method = RequestMethod.GET)
     public List<Users> get(Principal principal) {
         return transfersDAO.displayUsers();
