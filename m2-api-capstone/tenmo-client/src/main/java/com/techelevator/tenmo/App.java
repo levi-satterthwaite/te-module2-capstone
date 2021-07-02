@@ -90,7 +90,14 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 	}
 
 	private void sendBucks() {
+		Account account = accountService.getUserAccount();
 		console.showUserList(currentUser, API_BASE_URL);
+		int transferId = console.userTransferIdChoice();
+		double transferAmount = console.userTransferAmountChoice(account);
+		if (transferAmount == 0){
+			return;
+		}
+
 	}
 
 	private void requestBucks() {

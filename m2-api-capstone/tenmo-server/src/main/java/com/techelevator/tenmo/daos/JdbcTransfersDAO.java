@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,9 +40,20 @@ public class JdbcTransfersDAO implements TransfersDAO{
 
 
     @Override
-    public void sendBucks() {
-        String sql = "";
+    public void sendTo(int transferTo, double transferAmount) {
+        String sql = "UPDATE accounts SET balance = balance + ? WHERE user_id = ?;";
+        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, transferAmount, transferTo);
     }
 
+    @Override
+    public void sendFrom(Principal principal, double transferAmount) {
+        String sql = "UPDATE accounts SET balance = balance - ? FROM users WHERE accounts.user_id = users.user_id " +
+                "AND users.username = ?";
+        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, transferAmount, principal.getName());
+    }
 
+    @Override
+    public void updateTransfers(Principal principal, int transferTo, double transferAmount) {
+
+    }
 }

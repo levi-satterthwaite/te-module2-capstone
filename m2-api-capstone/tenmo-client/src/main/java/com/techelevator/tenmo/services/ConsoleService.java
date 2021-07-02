@@ -109,4 +109,24 @@ public class ConsoleService {
 		out.println("---------");
 		out.println("");
 	}
+
+	public int userTransferIdChoice() {
+		out.println("Enter ID of user you are sending to (0 to cancel):");
+		String userInput = in.nextLine();
+		return Integer.parseInt(userInput);
+	}
+
+	public double userTransferAmountChoice(Account account) {
+		out.println("Enter amount:");
+		String userInput = in.nextLine();
+		double inputAsDouble = Double.parseDouble(userInput);
+
+		if (inputAsDouble > account.getBalance()){
+			System.out.printf("The send request is greater than your current balance of $%.2f", account.getBalance());
+			inputAsDouble = 0;
+		}
+		out.println("");
+
+		return inputAsDouble;
+	}
 }

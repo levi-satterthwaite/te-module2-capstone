@@ -27,9 +27,12 @@ public class TransfersController {
     }
 
 
-//    @RequestMapping(path="/sendbucks", method = RequestMethod.GET){
-    //
-    //    }
+
+    @RequestMapping(path="/sendbucks", method = RequestMethod.POST)
+    public void post(Principal principal, int transferTo, double transferAmount){
+        transfersDAO.sendTo(transferTo, transferAmount);
+        transfersDAO.sendFrom(principal, transferAmount);
+     }
 }
 
 

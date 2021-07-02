@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,5 +34,17 @@ public class TransfersService {
                     HttpMethod.GET, entity, Users[].class).getBody();
 
      return Arrays.asList(usersList);
+    }
+
+
+    public void sendBucks(Principal principal, int transferTo, double transferAmount){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(currentUser.getToken());
+        HttpEntity entity = new HttpEntity(headers);
+
+        Object[] objects = new Object[]{principal,transferTo, transferAmount};
+
+//        restTemplate.exchange(baseUrl + "sendbucks", HttpMethod.POST, entity, );
+//        restTemplate.postForEntity(baseUrl + "sendbucks", objects);
     }
 }
