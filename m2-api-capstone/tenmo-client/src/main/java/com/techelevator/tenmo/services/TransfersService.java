@@ -2,6 +2,7 @@ package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.auth.models.AuthenticatedUser;
 import com.techelevator.tenmo.auth.models.User;
+import com.techelevator.tenmo.models.Transfers;
 import com.techelevator.tenmo.models.Users;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -37,14 +38,16 @@ public class TransfersService {
     }
 
 
-    public void sendBucks(Principal principal, int transferTo, double transferAmount){
+    public void sendBucks(int transferTo, double transferAmount){
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(currentUser.getToken());
         HttpEntity entity = new HttpEntity(headers);
 
-        Object[] objects = new Object[]{principal,transferTo, transferAmount};
+        Transfers transfers = new Transfers();
+        transfers.setAccountToId((long)transferTo);
+        transfers.setAmount(transferAmount);
 
-//        restTemplate.exchange(baseUrl + "sendbucks", HttpMethod.POST, entity, );
+        restTemplate.exchange(baseUrl + "sendbucks", HttpMethod.POST, entity, transfers.getClass());
 //        restTemplate.postForEntity(baseUrl + "sendbucks", objects);
     }
 }

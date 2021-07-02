@@ -5,10 +5,13 @@ import com.techelevator.tenmo.auth.models.UserCredentials;
 import com.techelevator.tenmo.auth.services.AuthenticationService;
 import com.techelevator.tenmo.auth.services.AuthenticationServiceException;
 import com.techelevator.tenmo.models.Account;
+import com.techelevator.tenmo.models.Transfers;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.ConsoleService;
 import com.techelevator.tenmo.services.TransfersService;
 import io.cucumber.java.bs.A;
+
+import java.security.Principal;
 
 public class App {
 
@@ -30,6 +33,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
     private ConsoleService console;
     private AuthenticationService authenticationService;
  	private AccountService accountService;
+ 	private TransfersService transfersService;
 
     public static void main(String[] args) {
     	App app = new App(new ConsoleService(System.in, System.out), new AuthenticationService(API_BASE_URL));
@@ -39,7 +43,6 @@ private static final String API_BASE_URL = "http://localhost:8080/";
     public App(ConsoleService console, AuthenticationService authenticationService) {
 		this.console = console;
 		this.authenticationService = authenticationService;
-
 	}
 
 	public void run() {
@@ -49,6 +52,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		
 		registerAndLogin();
 		this.accountService = new AccountService(currentUser, API_BASE_URL);
+		this.transfersService = new TransfersService(currentUser, API_BASE_URL);
 		mainMenu();
 	}
 
@@ -97,7 +101,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		if (transferAmount == 0){
 			return;
 		}
-
+		transfersService.sendBucks(transferId, transferAmount);
 	}
 
 	private void requestBucks() {

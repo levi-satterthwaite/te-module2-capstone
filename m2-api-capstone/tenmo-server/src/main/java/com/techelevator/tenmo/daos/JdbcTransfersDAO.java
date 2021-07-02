@@ -40,16 +40,16 @@ public class JdbcTransfersDAO implements TransfersDAO{
 
 
     @Override
-    public void sendTo(int transferTo, double transferAmount) {
+    public void sendTo(long transferTo, double transferAmount) {
         String sql = "UPDATE accounts SET balance = balance + ? WHERE user_id = ?;";
         SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, transferAmount, transferTo);
     }
 
     @Override
-    public void sendFrom(Principal principal, double transferAmount) {
+    public void sendFrom(String accountFrom, double transferAmount) {
         String sql = "UPDATE accounts SET balance = balance - ? FROM users WHERE accounts.user_id = users.user_id " +
                 "AND users.username = ?";
-        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, transferAmount, principal.getName());
+        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, transferAmount, accountFrom);
     }
 
     @Override

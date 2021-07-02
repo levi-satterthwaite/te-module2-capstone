@@ -10,8 +10,8 @@ import java.util.List;
 public interface TransfersDAO {
 
     List<Users> displayUsers();
-    void sendTo(int transferTo, double transferAmount);
-    void sendFrom(Principal principal, double transferAmount);
+    void sendTo(long transferTo, double transferAmount);
+    void sendFrom(String accountFrom, double transferAmount);
     void updateTransfers(Principal principal, int transferTo, double transferAmount);
 
 
