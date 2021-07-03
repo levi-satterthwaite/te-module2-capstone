@@ -7,6 +7,10 @@ import com.techelevator.tenmo.models.Users;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.security.Principal;
@@ -38,16 +42,15 @@ public class TransfersService {
     }
 
 
-    public void sendBucks(int transferTo, double transferAmount){
+
+    public void sendBucks(Transfers transfers){
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(currentUser.getToken());
         HttpEntity entity = new HttpEntity(headers);
 
-        Transfers transfers = new Transfers();
-        transfers.setAccountToId((long)transferTo);
-        transfers.setAmount(transferAmount);
 
-        restTemplate.exchange(baseUrl + "sendbucks", HttpMethod.POST, entity, transfers.getClass());
-//        restTemplate.postForEntity(baseUrl + "sendbucks", objects);
+        restTemplate.postForObject(baseUrl + "sendbucks", transfers, Transfers.class, entity);
+       //restTemplate.exchange(baseUrl + "sendbucks", HttpMethod.POST, entity, transfers.getClass());
+
     }
 }

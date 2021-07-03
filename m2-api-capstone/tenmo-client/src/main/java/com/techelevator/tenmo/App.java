@@ -101,7 +101,11 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		if (transferAmount == 0){
 			return;
 		}
-		transfersService.sendBucks(transferId, transferAmount);
+		Transfers transfers = new Transfers();
+		transfers.setAccountToId((long)transferId);
+		transfers.setAmount(transferAmount);
+
+		transfersService.sendBucks(transfers);
 	}
 
 	private void requestBucks() {
