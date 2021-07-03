@@ -42,15 +42,11 @@ public class TransfersService {
     }
 
 
-
     public void sendBucks(Transfers transfers){
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(currentUser.getToken());
         HttpEntity entity = new HttpEntity(headers);
 
-
         restTemplate.postForObject(baseUrl + "sendbucks", transfers, Transfers.class, entity);
-       //restTemplate.exchange(baseUrl + "sendbucks", HttpMethod.POST, entity, transfers.getClass());
-
     }
 }

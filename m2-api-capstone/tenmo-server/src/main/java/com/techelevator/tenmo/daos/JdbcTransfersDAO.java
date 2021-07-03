@@ -55,9 +55,6 @@ public class JdbcTransfersDAO implements TransfersDAO{
 
     @Override
     public void sendFrom(String accountFrom, double transferAmount) {
-        System.out.println("~~~~~~~~~~~~~~~~~~LOOK HERE ~~~~~~~~~~~~~~");
-        System.out.println(accountFrom + "   " + transferAmount);
-        System.out.println("~~~~~~~~~~~~~~~~~~LOOK HERE ~~~~~~~~~~~~~~");
         String sql = "UPDATE accounts SET balance = balance - ? FROM users WHERE accounts.user_id = users.user_id " +
                 "AND users.username = ?";
         jdbcTemplate.update(sql, transferAmount, accountFrom);

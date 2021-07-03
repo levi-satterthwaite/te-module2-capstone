@@ -31,7 +31,7 @@ public class TransfersController {
     @PreAuthorize("permitAll")
     @RequestMapping(path = "/sendbucks", method = RequestMethod.POST)
     public void post(@RequestBody Transfers transfers, Principal principal){
-       transfersDAO.sendBucks(principal, transfers);
+        transfersDAO.sendBucks(principal, transfers);
      }
 }
 
