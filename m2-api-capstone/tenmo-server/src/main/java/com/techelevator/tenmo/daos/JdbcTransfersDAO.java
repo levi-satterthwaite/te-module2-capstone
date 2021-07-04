@@ -37,14 +37,11 @@ public class JdbcTransfersDAO implements TransfersDAO{
         return userList;
     }
 
-
     @Override
     public void sendBucks(Principal principal, Transfers transfers) {
-        System.out.println("~~~~~~~~~~~~~~~~~~LOOK HERE ~~~~~~~~~~~~~~");
-        System.out.println(principal.getName());
-        System.out.println("~~~~~~~~~~~~~~~~~~LOOK HERE ~~~~~~~~~~~~~~");
         sendTo(transfers.getAccountToId(), transfers.getAmount());
         sendFrom(principal.getName(), transfers.getAmount());
+        addTransfers(principal.getName(), transfers.getAccountToId(), transfers.getAmount());
     }
 
     @Override
@@ -59,7 +56,10 @@ public class JdbcTransfersDAO implements TransfersDAO{
     }
 
     @Override
-    public void updateTransfers(Principal principal, int transferTo, double transferAmount) {
-
+    public void addTransfers(String accountFrom, long transferTo, double transferAmount) {
+        String sql = "INSERT INTO transfers (transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount)" +
+                " VALUES (default, 2, 2, (SELECT accounts.account_id FROM accounts JOIN users ON accounts.user_id = users.user_id WHERE users.username = ?), (SELECT account_id FROM accounts WHERE user_id = ?), ?)";
+        jdbcTemplate.update(sql, accountFrom, transferTo, transferAmount);
     }
+
 }

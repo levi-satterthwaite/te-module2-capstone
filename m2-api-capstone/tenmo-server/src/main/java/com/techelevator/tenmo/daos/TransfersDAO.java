@@ -13,7 +13,7 @@ public interface TransfersDAO {
     void sendBucks(Principal principal, Transfers transfers);
     void sendTo(long transferTo, double transferAmount);
     void sendFrom(String accountFrom, double transferAmount);
-    void updateTransfers(Principal principal, int transferTo, double transferAmount);
+    void addTransfers(String accountFrom, long transferTo, double transferAmount);
 
 
 }
