@@ -15,7 +15,6 @@ public class JdbcTransfersDAO implements TransfersDAO{
 
     private JdbcTemplate jdbcTemplate;
 
-
     public JdbcTransfersDAO(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -40,18 +39,23 @@ public class JdbcTransfersDAO implements TransfersDAO{
 
 
     @Override
-    public void sendTo(long transferTo, double transferAmount) {
-        System.out.println("user ID is ");
-        System.out.println(transferTo);
-        String sql = "UPDATE accounts SET balance = balance + ? WHERE user_id = ?";
-        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, transferAmount, transferTo);
+    public void sendBucks(Principal principal, Transfers transfers) {
+        System.out.println("~~~~~~~~~~~~~~~~~~LOOK HERE ~~~~~~~~~~~~~~");
+        System.out.println(principal.getName());
+        System.out.println("~~~~~~~~~~~~~~~~~~LOOK HERE ~~~~~~~~~~~~~~");
+        sendTo(transfers.getAccountToId(), transfers.getAmount());
+        sendFrom(principal.getName(), transfers.getAmount());
     }
 
     @Override
+    public void sendTo(long transferTo, double transferAmount) {
+        String sql = "UPDATE accounts SET balance = balance + ? WHERE user_id = ?";
+        jdbcTemplate.update(sql, transferAmount, transferTo);    }
+
+    @Override
     public void sendFrom(String accountFrom, double transferAmount) {
-        String sql = "UPDATE accounts SET balance = balance - ? FROM users WHERE accounts.user_id = users.user_id " +
-                "AND users.username = 'Levi'";
-        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, transferAmount, accountFrom);
+        String sql = "UPDATE accounts SET balance = balance - ? FROM users WHERE accounts.user_id = users.user_id AND users.username = ?";
+        jdbcTemplate.update(sql, transferAmount, accountFrom);
     }
 
     @Override

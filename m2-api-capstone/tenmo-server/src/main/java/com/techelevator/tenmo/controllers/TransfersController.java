@@ -2,10 +2,10 @@ package com.techelevator.tenmo.controllers;
 
 import com.techelevator.tenmo.daos.TransfersDAO;
 import com.techelevator.tenmo.models.Transfers;
+import jdk.jfr.ContentType;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.techelevator.tenmo.models.Users;
 
 import java.security.Principal;
@@ -28,11 +28,10 @@ public class TransfersController {
     }
 
 
-
-    @RequestMapping(path="/sendbucks", method = RequestMethod.POST)
-    public void post(Principal principal, Transfers transfers){
-        transfersDAO.sendTo(transfers.getAccountToId(), transfers.getAmount());
-        transfersDAO.sendFrom(principal.getName(), transfers.getAmount());
+    @PreAuthorize("permitAll")
+    @RequestMapping(path = "/sendbucks", method = RequestMethod.POST)
+    public void post(@RequestBody Transfers transfers, Principal principal){
+        transfersDAO.sendBucks(principal, transfers);
      }
 }
 
