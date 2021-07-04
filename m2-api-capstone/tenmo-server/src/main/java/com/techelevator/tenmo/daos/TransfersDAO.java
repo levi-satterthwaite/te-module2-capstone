@@ -14,6 +14,7 @@ public interface TransfersDAO {
     void sendTo(long transferTo, double transferAmount);
     void sendFrom(String accountFrom, double transferAmount);
     void addTransfers(String accountFrom, long transferTo, double transferAmount);
+    List<Transfers> getTransfers();
 
 
 }

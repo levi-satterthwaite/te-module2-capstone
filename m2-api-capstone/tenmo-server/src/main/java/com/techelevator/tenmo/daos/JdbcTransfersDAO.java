@@ -61,5 +61,29 @@ public class JdbcTransfersDAO implements TransfersDAO{
                 " VALUES (default, 2, 2, (SELECT accounts.account_id FROM accounts JOIN users ON accounts.user_id = users.user_id WHERE users.username = ?), (SELECT account_id FROM accounts WHERE user_id = ?), ?)";
         jdbcTemplate.update(sql, accountFrom, transferTo, transferAmount);
     }
+    @Override
+    public List<Transfers> getTransfers(Principal principal) {
+        Transfers transfers = null;
+        String sql = "SELECT transfers.transfer_id, transfer_types.transfer_type_desc, transfer_statuses.transfer_status_desc, \n" +
+                "(SELECT users.username FROM users JOIN accounts ON accounts.user_id = users.user_id JOIN transfers ON accounts.account_id = transfers.account_from),\n" +
+                "(SELECT users.username FROM users JOIN accounts ON accounts.user_id = users.user_id JOIN transfers ON accounts.account_id = transfers.account_to),\n" +
+                "transfers.amount\n" +
+                "FROM transfers\n" +
+                "JOIN transfer_types ON transfers.transfer_type_id = transfer_types.transfer_type_id\n" +
+                "JOIN transfer_statuses ON transfer_statuses.transfer_status_id = transfers.transfer_status_id\n" +
+                "JOIN accounts ON accounts.account_id = transfers.account_from\n" +
+                "JOIN users ON users.user_id = accounts.user_id;";
+        SqlRowSet rows =  jdbcTemplate.queryForRowSet(sql, );
+
+        if (rows.next()){
+            transfers = new Transfers();
+            transfers.setTransferId(rows.getLong("transfer_id"));
+            transfers.setTransferType(rows.getString("transfer_type"));
+            transfers.setTransferStatus(rows.getString("transfer_status"));
+            transfers.setAccountFrom(rows.getString("username"));
+            transfers.setAccountTo(rows.getString("username"));
+            transfers.setAmount(rows.getDouble("amount"));
+        }
+    }
 
 }
